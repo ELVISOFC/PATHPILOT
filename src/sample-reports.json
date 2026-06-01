@@ -1,0 +1,269 @@
+{
+  "meta": {
+    "product": "PathPilot",
+    "version": "1.0",
+    "description": "Sample career trajectory reports for hero industry landing pages. Ready for UI integration.",
+    "generated": "2025-04-15",
+    "design_system": {
+      "primary_navy": "#1a2332",
+      "accent_green": "#00b894",
+      "accent_orange": "#fdcb6e",
+      "text_dark": "#2d3436",
+      "text_muted": "#636e72"
+    },
+    "cta": {
+      "label": "See Your Trajectory",
+      "url": "/free-scan",
+      "action": "start_free_scan"
+    }
+  },
+  "samples": [
+    {
+      "report_id": "PP-2025-0001",
+      "title": "Senior Software Engineer — San Francisco vs. Austin",
+      "industry": "Technology",
+      "sections": [
+        {
+          "id": "salary_benchmark",
+          "title": "Salary Benchmark",
+          "type": "comparison_table",
+          "headers": ["Metric", "San Francisco, CA", "Austin, TX"],
+          "rows": [
+            ["Market Median (P50)", "$182,000", "$148,000"],
+            ["Market Range (P25–P75)", "$155K – $215K", "$125K – $178K"],
+            ["Your Input Salary", "$170,000", "$170,000"],
+            ["Percentile", "35th (below market)", "68th (above market)"]
+          ],
+          "insight": "You're in the bottom third for SF. With 6+ years experience, target $195K+. Your SF salary goes much further in Austin."
+        },
+        {
+          "id": "cost_of_living",
+          "title": "Cost of Living Adjustment",
+          "type": "comparison_table",
+          "headers": ["Expense", "SF", "Austin", "Delta"],
+          "rows": [
+            ["Housing (1BR)", "$3,200/mo", "$1,550/mo", "-52%"],
+            ["Transportation", "$180/mo", "$120/mo", "-33%"],
+            ["Taxes (effective)", "~28%", "~22%", "-6pp"],
+            ["Take-Home Adjusted", "$108,360/yr", "$118,440/yr", "+$10,080"]
+          ],
+          "verdict": "Austin relocation at same salary = a $10K+ effective raise."
+        },
+        {
+          "id": "skill_gap",
+          "title": "Skill Gap Analysis — Next: Staff Engineer",
+          "type": "skill_gaps",
+          "skills": [
+            {"name": "System Design", "level": 3, "required": 4, "gap": "medium"},
+            {"name": "Mentorship / Team Leadership", "level": 2, "required": 4, "gap": "high"},
+            {"name": "Cross-Functional Communication", "level": 4, "required": 4, "gap": "none"},
+            {"name": "Technical Roadmapping", "level": 2, "required": 3, "gap": "medium"},
+            {"name": "On-Call / Incident Response", "level": 4, "required": 3, "gap": "none"},
+            {"name": "Budget / Resource Planning", "level": 1, "required": 3, "gap": "major"}
+          ],
+          "actions": [
+            "Lead a cross-team initiative (6 mo.) — fills mentorship + roadmapping gaps",
+            "Take Staff Engineer prep course (System Design Deep Dive, 3 mo.)",
+            "Shadow a Staff Engineer — learn budget/resource planning"
+          ]
+        },
+        {
+          "id": "trajectory",
+          "title": "Career Trajectory Map",
+          "type": "branching_paths",
+          "paths": [
+            {"name": "Technical Track (Staff Engineer)", "timeline": "18–24 months", "salary_target": "$220K–$260K (SF) / $180K–$210K (Austin)"},
+            {"name": "Management Track (Eng Manager)", "timeline": "24–36 months", "salary_target": "$240K–$300K (SF) / $195K–$240K (Austin)"},
+            {"name": "Pivot to Product (TPM)", "timeline": "12–18 months", "salary_target": "$190K–$230K (SF) / $155K–$185K (Austin)"}
+          ]
+        }
+      ]
+    },
+    {
+      "report_id": "PP-2025-0002",
+      "title": "Financial Analyst — NYC to Charlotte Relocation",
+      "industry": "Financial Services",
+      "sections": [
+        {
+          "id": "salary_benchmark",
+          "title": "Salary Benchmark",
+          "type": "comparison_table",
+          "headers": ["Metric", "New York City", "Charlotte, NC"],
+          "rows": [
+            ["Market Median (P50)", "$95,000", "$78,000"],
+            ["Market Range (P25–P75)", "$75K – $120K", "$62K – $95K"],
+            ["Your Input Salary", "$88,000", "$88,000"],
+            ["Percentile", "35th (below market)", "65th (above market)"]
+          ],
+          "insight": "Your base is below NYC median. You're due for a correction. At $88K in Charlotte, you'd be well above market."
+        },
+        {
+          "id": "promotion_timeline",
+          "title": "Promotion Timeline Projection",
+          "type": "comparison_table",
+          "headers": ["Path", "Role Change", "Salary Jump", "Timeline"],
+          "rows": [
+            ["Stay in NYC, same firm", "Analyst → Sr. Analyst", "$95K → $115K (+$20K)", "12–18 mo."],
+            ["Relocate to Charlotte", "Analyst → Sr. Analyst", "$88K → $105K (+$17K)", "3–6 mo."],
+            ["NYC → Switch firms", "Analyst → Sr. Analyst", "$88K → $120K (+$32K)", "3–6 mo."],
+            ["Charlotte → Switch firms", "Analyst → Sr. Analyst", "$88K → $98K (+$10K)", "3–6 mo."]
+          ]
+        },
+        {
+          "id": "skill_gap",
+          "title": "Skill Gap Analysis — Target: Senior Financial Analyst",
+          "type": "skill_gaps",
+          "skills": [
+            {"name": "Financial Modeling (3-Statement)", "level": 4, "required": 5, "gap": "low"},
+            {"name": "Advanced Excel / VBA", "level": 3, "required": 4, "gap": "medium"},
+            {"name": "SQL / Data Querying", "level": 2, "required": 4, "gap": "high"},
+            {"name": "Presentation to Leadership", "level": 3, "required": 4, "gap": "medium"},
+            {"name": "Variance / FP&A Analysis", "level": 4, "required": 4, "gap": "none"}
+          ],
+          "top_recommendation": "SQL proficiency is the #1 differentiator for Sr. Analyst roles. A 6-week SQL course ($200–$500) returns an estimated $15K–$20K in salary upside."
+        },
+        {
+          "id": "relocation",
+          "title": "Relocation Assessment — NYC → Charlotte",
+          "type": "comparison_table",
+          "headers": ["Factor", "NYC", "Charlotte", "Delta"],
+          "rows": [
+            ["Rent (1BR)", "$2,800/mo", "$1,400/mo", "-50%"],
+            ["State Income Tax", "8.8%", "0% (none)", "—"],
+            ["Commute (avg)", "45 min", "22 min", "-51%"],
+            ["Effective Salary", "$62K after COL", "$78K after COL", "+$16K/yr"]
+          ],
+          "verdict": "Charlotte offers better career velocity for mid-level finance roles. Internal transfer is highest-ROI move."
+        }
+      ]
+    },
+    {
+      "report_id": "PP-2025-0003",
+      "title": "Product Manager — IC vs. Management Track Comparison",
+      "industry": "Technology / SaaS",
+      "sections": [
+        {
+          "id": "salary_benchmark",
+          "title": "Salary Benchmark",
+          "type": "single_table",
+          "headers": ["Metric", "Value"],
+          "rows": [
+            ["Role", "Product Manager"],
+            ["Market Median (P50, National)", "$140,000"],
+            ["Market Range (P25–P75)", "$115K – $175K"],
+            ["Your Input Salary", "$135,000"],
+            ["Percentile", "42nd (slightly below median)"]
+          ],
+          "insight": "Below median for 5 years experience. Likely due to 4+ year tenure at current company (10–15% below market)."
+        },
+        {
+          "id": "branch_comparison",
+          "title": "IC vs. Management Track Comparison",
+          "type": "comparison_table",
+          "headers": ["Dimension", "Senior PM (IC)", "Group PM / Director"],
+          "rows": [
+            ["Target Salary", "$170K – $200K", "$200K – $260K"],
+            ["Timeline", "12–18 months", "24–36 months"],
+            ["Team Size", "0 direct reports", "3–8 PMs"],
+            ["Primary Work", "Strategy, specs, experiments", "Hiring, reviews, org dynamics"],
+            ["Meeting Load", "15–20 hrs/week", "30+ hrs/week"],
+            ["Stress Profile", "Product delivery pressure", "People & political pressure"]
+          ]
+        },
+        {
+          "id": "skill_gap",
+          "title": "Skill Gap — Senior PM vs. Group PM",
+          "type": "skill_gaps",
+          "skills": [
+            {"name": "Product Strategy & Vision", "level": 3, "required_sr": 4, "required_gp": 4, "gap_sr": "medium", "gap_gp": "medium"},
+            {"name": "A/B Testing & Experimentation", "level": 4, "required_sr": 4, "required_gp": 3, "gap_sr": "none", "gap_gp": "none"},
+            {"name": "Stakeholder Management", "level": 3, "required_sr": 3, "required_gp": 5, "gap_sr": "none", "gap_gp": "major"},
+            {"name": "Data Analysis (SQL + Python)", "level": 2, "required_sr": 4, "required_gp": 2, "gap_sr": "high", "gap_gp": "none"},
+            {"name": "Team Coaching / Mentorship", "level": 2, "required_sr": 2, "required_gp": 5, "gap_sr": "none", "gap_gp": "major"},
+            {"name": "P&L / Business Acumen", "level": 1, "required_sr": 2, "required_gp": 4, "gap_sr": "medium", "gap_gp": "major"}
+          ],
+          "recommendation": "Short term (12 mo.): Target Senior PM (IC) — focus on SQL/data skills. Long term (3 yrs): If you enjoy people, pivot to Group PM — build stakeholder influence and business acumen."
+        },
+        {
+          "id": "trajectory_diagram",
+          "title": "Trajectory Visualization",
+          "type": "tree_diagram",
+          "nodes": [
+            {"current": "PM ($135K)", "branches": [
+              {"path": "Senior PM ($170K–$200K)", "timeline": "12–18 mo.", "next": {"path": "Principal PM ($220K–$260K)", "timeline": "+24–36 mo."}},
+              {"path": "Group PM ($200K–$260K)", "timeline": "24–36 mo.", "next": {"path": "Director ($280K–$350K)", "timeline": "+36–48 mo."}}
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "report_id": "PP-2025-0004",
+      "title": "Healthcare IT Manager — Skills for Director Role",
+      "industry": "Healthcare Administration",
+      "sections": [
+        {
+          "id": "salary_benchmark",
+          "title": "Salary Benchmark",
+          "type": "single_table",
+          "headers": ["Metric", "Value"],
+          "rows": [
+            ["Role", "Healthcare IT Manager"],
+            ["Market Median", "$115,000"],
+            ["Market Range", "$95K – $140K"],
+            ["Your Input Salary", "$108,000"],
+            ["Percentile", "38th (below median)"]
+          ],
+          "insight": "Moving to a larger health system could yield an immediate 15–20% bump."
+        },
+        {
+          "id": "skill_gap",
+          "title": "Skill Gap — Manager → Director of Health IT",
+          "type": "skill_gaps",
+          "skills": [
+            {"name": "EHR Implementation (Epic/Cerner)", "level": 4, "required": 4, "gap": "none"},
+            {"name": "ITIL / Service Management", "level": 3, "required": 4, "gap": "medium"},
+            {"name": "HIPAA Compliance Leadership", "level": 3, "required": 5, "gap": "high"},
+            {"name": "Vendor Contract Negotiation", "level": 2, "required": 4, "gap": "high"},
+            {"name": "Budget Management ($5M+)", "level": 1, "required": 4, "gap": "major"},
+            {"name": "Board-Level Presentation", "level": 2, "required": 4, "gap": "high"}
+          ]
+        },
+        {
+          "id": "certifications",
+          "title": "Certification Recommendations",
+          "type": "comparison_table",
+          "headers": ["Certification", "Cost", "Time", "Impact"],
+          "rows": [
+            ["CHCIO (Certified Healthcare CIO)", "$1,500", "3–6 mo.", "Strongly preferred for Director roles"],
+            ["Epic Accreditation", "$500–$2,000", "2–4 mo.", "Required by many large systems"],
+            ["Lean Six Sigma Green Belt", "$400–$1,000", "2–3 mo.", "Differentiator for ops-focused roles"]
+          ]
+        },
+        {
+          "id": "actions",
+          "title": "Top 3 Priority Actions",
+          "type": "numbered_list",
+          "items": [
+            "Request budget ownership of a $500K+ project within your current role",
+            "Start CHCIO certification — most cost-effective credential for Director roles",
+            "Join HIMSS and attend local chapter events — 70% of Director roles filled through network referrals"
+          ]
+        },
+        {
+          "id": "regional_comparison",
+          "title": "Regional Comparison — Health IT Director",
+          "type": "comparison_table",
+          "headers": ["Metro", "Median Salary", "Job Openings", "COL Factor"],
+          "rows": [
+            ["Boston, MA", "$165,000", "45", "High"],
+            ["Atlanta, GA", "$145,000", "38", "Low"],
+            ["Houston, TX", "$150,000", "30", "Low"],
+            ["Minneapolis, MN", "$152,000", "22", "Medium"]
+          ],
+          "best_value": "Atlanta offers the highest salary-to-COL ratio for Health IT Director roles."
+        }
+      ]
+    }
+  ]
+}
