@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { generateReport } from './engine/analysisEngine';
+import { purchaseFullReport, purchaseSubscription, getStripe, PAYMENT_LINKS } from './stripe/stripeConfig';
 
 const steps = [
   { id: 1, title: 'Basics', description: 'Who you are' },
@@ -623,17 +624,15 @@ function App() {
                           Career trajectory map
                         </li>
                       </ul>
-                      <a
-                        href="https://buy.stripe.com/test_placeholder_full"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-5 inline-flex items-center justify-center gap-2 w-full px-6 py-3 rounded-xl bg-accent text-white text-sm font-bold hover:bg-accent/90 hover:shadow-lg transition-all shadow-md"
+                      <button
+                        onClick={purchaseFullReport}
+                        className="mt-5 inline-flex items-center justify-center gap-2 w-full px-6 py-3 rounded-xl bg-accent text-white text-sm font-bold hover:bg-accent/90 hover:shadow-lg transition-all shadow-md cursor-pointer"
                       >
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                         </svg>
                         Upgrade to Full Report — $15
-                      </a>
+                      </button>
                     </div>
 
                     {/* Subscription */}
@@ -663,17 +662,15 @@ function App() {
                           Salary trend tracking
                         </li>
                       </ul>
-                      <a
-                        href="https://buy.stripe.com/test_placeholder_sub"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-5 inline-flex items-center justify-center gap-2 w-full px-6 py-3 rounded-xl bg-primary text-white text-sm font-bold hover:bg-primary/90 hover:shadow-lg transition-all shadow-md"
+                      <button
+                        onClick={purchaseSubscription}
+                        className="mt-5 inline-flex items-center justify-center gap-2 w-full px-6 py-3 rounded-xl bg-primary text-white text-sm font-bold hover:bg-primary/90 hover:shadow-lg transition-all shadow-md cursor-pointer"
                       >
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                         </svg>
                         Subscribe $9/mo
-                      </a>
+                      </button>
                     </div>
                   </div>
 
@@ -753,4 +750,21 @@ function App() {
   );
 }
 
-export default App;
+export default App;/home/engine/.bashrc: line 1: syntax error near unexpected token `('
+/home/engine/.bashrc: line 1: `. /etc/profile.d/workload-containment.shn# ~/.bashrc: executed by bash(1) for non-login shells.'
+/home/engine/.bashrc: line 1: syntax error near unexpected token `('
+/home/engine/.bashrc: line 1: `. /etc/profile.d/workload-containment.shn# ~/.bashrc: executed by bash(1) for non-login shells.'
+/home/engine/.bashrc: line 1: syntax error near unexpected token `('
+/home/engine/.bashrc: line 1: `. /etc/profile.d/workload-containment.shn# ~/.bashrc: executed by bash(1) for non-login shells.'
+/home/engine/.bashrc: line 1: syntax error near unexpected token `('
+/home/engine/.bashrc: line 1: `. /etc/profile.d/workload-containment.shn# ~/.bashrc: executed by bash(1) for non-login shells.'
+/home/engine/.bashrc: line 1: syntax error near unexpected token `('
+/home/engine/.bashrc: line 1: `. /etc/profile.d/workload-containment.shn# ~/.bashrc: executed by bash(1) for non-login shells.'
+/home/engine/.bashrc: line 1: syntax error near unexpected token `('
+/home/engine/.bashrc: line 1: `. /etc/profile.d/workload-containment.shn# ~/.bashrc: executed by bash(1) for non-login shells.'
+/home/engine/.bashrc: line 1: syntax error near unexpected token `('
+/home/engine/.bashrc: line 1: `. /etc/profile.d/workload-containment.shn# ~/.bashrc: executed by bash(1) for non-login shells.'
+/home/engine/.bashrc: line 1: syntax error near unexpected token `('
+/home/engine/.bashrc: line 1: `. /etc/profile.d/workload-containment.shn# ~/.bashrc: executed by bash(1) for non-login shells.'
+/home/engine/.bashrc: line 1: syntax error near unexpected token `('
+/home/engine/.bashrc: line 1: `. /etc/profile.d/workload-containment.shn# ~/.bashrc: executed by bash(1) for non-login shells.'
