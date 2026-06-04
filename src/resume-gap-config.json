@@ -1,0 +1,294 @@
+{
+  "meta": {
+    "product": "PathPilot",
+    "version": "1.0",
+    "description": "Resume Gap Analysis keyword/skill mapping configuration. The Analysis Engine scans a user's uploaded resume against these mappings to identify skill gaps for target roles.",
+    "generated": "2025-06-01",
+    "scoring": {
+      "max_score_per_skill": 100,
+      "gap_thresholds": {
+        "none": {"min_score": 80, "label": "✅ Met or exceeded"},
+        "low": {"min_score": 60, "label": "⚠️ Minor gap — quick to close"},
+        "medium": {"min_score": 35, "label": "⚠️ Moderate gap — needs deliberate effort"},
+        "high": {"min_score": 15, "label": "❌ Significant gap — prioritize this"},
+        "major": {"min_score": 0, "label": "❌ Major gap — foundational skill missing"}
+      },
+      "weight_type_weights": {
+        "required": 3.0,
+        "preferred": 1.5,
+        "bonus": 0.5
+      }
+    }
+  },
+  "roles": [
+    {
+      "role_slug": "ai-engineer",
+      "role_title": "AI/ML Engineer",
+      "alternate_titles": ["Machine Learning Engineer", "ML Engineer", "AI Engineer", "Deep Learning Engineer", "Applied Scientist"],
+      "industry": "Technology / AI",
+      "seniority_levels": ["Junior (0-2 yrs)", "Mid (2-5 yrs)", "Senior (5-8 yrs)", "Staff/Principal (8+ yrs)"],
+      "target_next_role": "Senior ML Engineer / Staff ML Engineer",
+      "skill_categories": [
+        {
+          "category": "Core ML & Deep Learning",
+          "weight": 3.0,
+          "skills": [
+            {"name": "PyTorch", "keywords": ["pytorch", "torch", "torch.nn", "torchvision", "pytorch lightning"], "weight_type": "required", "min_years": 2},
+            {"name": "TensorFlow / Keras", "keywords": ["tensorflow", "keras", "tf.data", "tf.serving", "tensorboard"], "weight_type": "preferred", "min_years": 1},
+            {"name": "LLM / GenAI", "keywords": ["llm", "large language model", "gpt", "transformer", "attention", "rag", "retrieval augmented", "langchain", "langgraph", "fine-tuning", "lora", "qlora", "prompt engineering"], "weight_type": "required", "min_years": 1},
+            {"name": "Computer Vision", "keywords": ["computer vision", "opencv", "yolo", "detection", "segmentation", "cnn", "resnet", "image classification", "object detection"], "weight_type": "preferred", "min_years": 1},
+            {"name": "Natural Language Processing", "keywords": ["nlp", "natural language", "tokenization", "text classification", "sentiment", "ner", "named entity", "word2vec", "bert", "roberta"], "weight_type": "preferred", "min_years": 1},
+            {"name": "Reinforcement Learning", "keywords": ["reinforcement learning", "rl", "q-learning", "deep rl", "ppo", "dqn", "policy gradient"], "weight_type": "bonus", "min_years": 0},
+            {"name": "ML Fundamentals", "keywords": ["supervised learning", "unsupervised learning", "regression", "classification", "clustering", "dimensionality reduction", "pca", "svm", "random forest", "gradient boosting", "xgboost", "feature engineering"], "weight_type": "required", "min_years": 2}
+          ]
+        },
+        {
+          "category": "MLOps & Production",
+          "weight": 2.5,
+          "skills": [
+            {"name": "ML Pipelines", "keywords": ["ml pipeline", "data pipeline", "feature store", "feature engineering pipeline", "airflow", "flyte", "kubeflow", "mlflow", "prefect"], "weight_type": "required", "min_years": 1},
+            {"name": "Model Deployment", "keywords": ["model deployment", "model serving", "inference", "api endpoint", "docker", "kubernetes", "k8s", "triton", "torchserve", "fastapi", "flask api"], "weight_type": "required", "min_years": 1},
+            {"name": "Model Monitoring", "keywords": ["model monitoring", "drift detection", "data drift", "concept drift", "model evaluation", "observability", "evidently", "whylabs", "alibi detect"], "weight_type": "preferred", "min_years": 0.5},
+            {"name": "CI/CD for ML", "keywords": ["ci/cd", "mlops", "continuous training", "automated retraining", "github actions", "jenkins", "gitlab ci", "model registry"], "weight_type": "preferred", "min_years": 0.5},
+            {"name": "Experimentation Platform", "keywords": ["a/b testing", "experimentation", "hypothesis testing", "statistical significance", "online evaluation", "canary deployment"], "weight_type": "preferred", "min_years": 0.5}
+          ]
+        },
+        {
+          "category": "Programming & Infrastructure",
+          "weight": 2.0,
+          "skills": [
+            {"name": "Python", "keywords": ["python", "numpy", "scipy", "pandas", "scikit-learn", "jupyter"], "weight_type": "required", "min_years": 3},
+            {"name": "SQL", "keywords": ["sql", "mysql", "postgresql", "postgres", "bigquery", "redshift", "snowflake", "data warehouse", "etl"], "weight_type": "required", "min_years": 2},
+            {"name": "Cloud Platform", "keywords": ["aws", "gcp", "azure", "sagemaker", "vertex ai", "azure ml", "ec2", "s3"], "weight_type": "required", "min_years": 1},
+            {"name": "Distributed Computing", "keywords": ["spark", "pyspark", "ray", "dask", "distributed training", "gpu cluster", "horovod", "deepseed", "parallel computing"], "weight_type": "preferred", "min_years": 1},
+            {"name": "Data Engineering", "keywords": ["data engineering", "data warehouse", "data lake", "apache spark", "kafka", "airflow", "dbt", "data modeling"], "weight_type": "preferred", "min_years": 0.5}
+          ]
+        },
+        {
+          "category": "Research & Communication",
+          "weight": 1.0,
+          "skills": [
+            {"name": "Research Paper Analysis", "keywords": ["research paper", "literature review", "arxiv", "paper implementation", "reproduce results", "state-of-the-art", "sota"], "weight_type": "preferred", "min_years": 0.5},
+            {"name": "Technical Presentation", "keywords": ["presentation", "technical talk", "conference", "workshop", "demo", "stakeholder presentation", "executive summary"], "weight_type": "bonus", "min_years": 0},
+            {"name": "Cross-Functional Collaboration", "keywords": ["cross-functional", "product team", "stakeholder", "engineering partner", "product manager collaboration", "agile", "sprint"], "weight_type": "preferred", "min_years": 1}
+          ]
+        }
+      ]
+    },
+    {
+      "role_slug": "staff-engineer",
+      "role_title": "Staff Engineer",
+      "alternate_titles": ["Staff Software Engineer", "Principal Engineer", "Senior Staff Engineer", "Tech Lead"],
+      "industry": "Technology",
+      "seniority_levels": ["Senior (5-8 yrs)", "Staff (8-12 yrs)", "Principal (12+ yrs)"],
+      "target_next_role": "Principal Engineer / Director of Engineering",
+      "skill_categories": [
+        {
+          "category": "Technical Depth",
+          "weight": 2.5,
+          "skills": [
+            {"name": "System Design", "keywords": ["system design", "distributed systems", "architecture", "microservices", "scalability", "high availability", "fault tolerance", "load balancing", "caching", "cdns", "message queue", "event-driven"], "weight_type": "required", "min_years": 3},
+            {"name": "Software Architecture", "keywords": ["software architecture", "design patterns", "clean architecture", "domain-driven design", "ddd", "hexagonal", "event sourcing", "cqrs", "api design", "rest", "graphql"], "weight_type": "required", "min_years": 3},
+            {"name": "Performance Optimization", "keywords": ["performance", "optimization", "profiling", "benchmarking", "latency", "throughput", "database optimization", "query tuning", "indexing", "caching strategy"], "weight_type": "preferred", "min_years": 2},
+            {"name": "Testing Strategy", "keywords": ["testing strategy", "unit test", "integration test", "end-to-end test", "test coverage", "tdd", "ci/cd", "quality engineering", "chaos engineering"], "weight_type": "preferred", "min_years": 2}
+          ]
+        },
+        {
+          "category": "Technical Leadership",
+          "weight": 3.0,
+          "skills": [
+            {"name": "Tech Roadmapping", "keywords": ["technical roadmap", "technology strategy", "architecture decision", "tech debt", "migration strategy", "technology selection", "rfc", "design doc"], "weight_type": "required", "min_years": 2},
+            {"name": "Mentorship", "keywords": ["mentor", "mentorship", "coaching", "code review", "pair programming", "onboarding", "growing engineers", "technical guidance"], "weight_type": "required", "min_years": 2},
+            {"name": "Cross-Team Influence", "keywords": ["cross-team", "organization-wide", "xfn", "influence without authority", "alignment", "consensus building", "standards", "best practices"], "weight_type": "required", "min_years": 2},
+            {"name": "Incident Response", "keywords": ["incident response", "on-call", "postmortem", "runbook", "sre", "reliability", "sla", "slo", "error budget"], "weight_type": "preferred", "min_years": 1}
+          ]
+        },
+        {
+          "category": "Business & Strategy",
+          "weight": 1.5,
+          "skills": [
+            {"name": "Product Partnership", "keywords": ["product strategy", "product partnership", "engineering partner", "product roadmap", "okr", "quarterly planning", "user research", "customer feedback"], "weight_type": "required", "min_years": 1},
+            {"name": "Budget & Resource Planning", "keywords": ["budget", "resource planning", "headcount planning", "vendor evaluation", "cost optimization", "cloud cost", "infrastructure cost", "roi analysis"], "weight_type": "preferred", "min_years": 1},
+            {"name": "Hiring & Interviewing", "keywords": ["hiring", "interview", "technical screen", "debrief", "candidate evaluation", "recruitment", "team building", "bar raiser", "onsite"], "weight_type": "preferred", "min_years": 1}
+          ]
+        },
+        {
+          "category": "Communication",
+          "weight": 1.5,
+          "skills": [
+            {"name": "Technical Writing", "keywords": ["technical writing", "documentation", "design document", "architecture review", "rfc", "adr", "wiki", "knowledge base"], "weight_type": "preferred", "min_years": 1},
+            {"name": "Executive Presentation", "keywords": ["executive presentation", "board deck", "leadership update", "okr review", "tech talk", "conference talk", "demo day"], "weight_type": "preferred", "min_years": 0.5},
+            {"name": "Cross-Functional Communication", "keywords": ["stakeholder", "cross-functional communication", "conflict resolution", "negotiation", "facilitation", "workshop", "retrospective"], "weight_type": "required", "min_years": 2}
+          ]
+        }
+      ]
+    },
+    {
+      "role_slug": "renewables-pm",
+      "role_title": "Renewable Energy Project Manager",
+      "alternate_titles": ["Solar Project Manager", "Wind Energy Project Manager", "Renewable Energy Developer", "Clean Energy Project Manager", "Energy Storage Project Manager"],
+      "industry": "Renewable Energy / Clean Tech",
+      "seniority_levels": ["Associate (0-3 yrs)", "Project Manager (3-7 yrs)", "Senior PM (7-12 yrs)", "Director (12+ yrs)"],
+      "target_next_role": "Senior Project Manager / Director of Project Development",
+      "skill_categories": [
+        {
+          "category": "Project Development & Execution",
+          "weight": 3.0,
+          "skills": [
+            {"name": "Project Development Lifecycle", "keywords": ["project development", "site selection", "land acquisition", "permitting", "zoning", "environmental impact", "nepa", "ceqa", "interconnection", "feasibility study", "due diligence"], "weight_type": "required", "min_years": 2},
+            {"name": "EPC Management", "keywords": ["epc", "engineering procurement construction", "contractor management", "construction management", "subcontractor", "commissioning", "turnkey", "schedule management", "critical path"], "weight_type": "required", "min_years": 2},
+            {"name": "Project Scheduling", "keywords": ["project schedule", "gantt", "ms project", "primavera", "p6", "milestone tracking", "resource planning", "s-curve", "earned value"], "weight_type": "required", "min_years": 2},
+            {"name": "Risk Management", "keywords": ["risk management", "risk register", "mitigation plan", "contingency", "force majeure", "insurance", "risk assessment"], "weight_type": "preferred", "min_years": 1}
+          ]
+        },
+        {
+          "category": "Financial & Commercial",
+          "weight": 2.5,
+          "skills": [
+            {"name": "Project Finance", "keywords": ["project finance", "tax equity", "ppa", "power purchase agreement", "financial modeling", "cash flow", "lcoe", "levelized cost", "irr", "npv", "investment thesis"], "weight_type": "required", "min_years": 1},
+            {"name": "Budget Management", "keywords": ["budget", "budget management", "cost control", "forecasting", "capex", "opex", "variance analysis", "cost reporting"], "weight_type": "required", "min_years": 2},
+            {"name": "Contract Negotiation", "keywords": ["contract negotiation", "vendor contract", "procurement", "rfi", "rfp", "bid evaluation", "supply agreement", "o&m agreement"], "weight_type": "required", "min_years": 1},
+            {"name": "Grants & Incentives", "keywords": ["ira", "inflation reduction act", "tax credit", "itc", "ptc", "renewable energy credit", "rec", "grant", "incentive", "subsidy", "energy policy"], "weight_type": "preferred", "min_years": 0.5}
+          ]
+        },
+        {
+          "category": "Technical Knowledge",
+          "weight": 2.0,
+          "skills": [
+            {"name": "Solar Technology", "keywords": ["solar", "photovoltaic", "pv", "solar panel", "inverter", "tracker", "monocrystalline", "thin film", "bifacial", "pv syst", "helioscope", "nrel", "saml"], "weight_type": "required", "min_years": 2},
+            {"name": "Wind Technology", "keywords": ["wind", "wind turbine", "onshore wind", "offshore wind", "wake modeling", "wind resource assessment", "met mast", "lidar", "turbine technology"], "weight_type": "preferred", "min_years": 1},
+            {"name": "Energy Storage", "keywords": ["battery storage", "bess", "lithium-ion", "flow battery", "duration", "round-trip efficiency", "soc", "solar-plus-storage", "standalone storage"], "weight_type": "preferred", "min_years": 1},
+            {"name": "Grid & Interconnection", "keywords": ["grid interconnection", "transmission", "distribution", "iso", "rto", "ferc", "net metering", "interconnection agreement", "cluster study", "generator interconnection"], "weight_type": "preferred", "min_years": 1},
+            {"name": "GIS & Siting", "keywords": ["gis", "geographic information", "arcgis", "qgis", "solar siting", "land analysis", "constraint mapping", "parcel analysis", "topography"], "weight_type": "preferred", "min_years": 0.5}
+          ]
+        },
+        {
+          "category": "Regulatory & Stakeholder",
+          "weight": 1.5,
+          "skills": [
+            {"name": "Regulatory Compliance", "keywords": ["regulatory compliance", "environmental regulation", "clean water act", "endangered species", "cultural resources", "section 106", "community engagement", "public hearing"], "weight_type": "required", "min_years": 1},
+            {"name": "Community Relations", "keywords": ["community relations", "stakeholder engagement", "public outreach", "town hall", "landowner relations", "community benefit", "agricultural preservation"], "weight_type": "preferred", "min_years": 1},
+            {"name": "Permitting", "keywords": ["permit", "building permit", "conditional use", "special use permit", "variance", "environmental permit", "stormwater", "air permit", "dewatering"], "weight_type": "required", "min_years": 1}
+          ]
+        },
+        {
+          "category": "Certifications & Professional",
+          "weight": 1.0,
+          "skills": [
+            {"name": "PMP", "keywords": ["pmp", "project management professional", "pmi"], "weight_type": "preferred", "min_years": 0},
+            {"name": "NABCEP", "keywords": ["nabcep", "pv installer", "pv professional"], "weight_type": "preferred", "min_years": 0},
+            {"name": "AEE REP", "keywords": ["renewable energy professional", "rep certification", "aee", "association of energy engineers"], "weight_type": "bonus", "min_years": 0},
+            {"name": "Lean Six Sigma", "keywords": ["lean six sigma", "six sigma", "green belt", "black belt", "process improvement", "dmaic"], "weight_type": "bonus", "min_years": 0}
+          ]
+        }
+      ]
+    },
+    {
+      "role_slug": "product-manager",
+      "role_title": "Product Manager",
+      "alternate_titles": ["Senior Product Manager", "Group Product Manager", "Product Owner", "Technical Product Manager"],
+      "industry": "Technology / SaaS",
+      "seniority_levels": ["Associate (0-2 yrs)", "Product Manager (2-5 yrs)", "Senior PM (5-8 yrs)", "Group PM / Director (8+ yrs)"],
+      "target_next_role": "Senior Product Manager / Group Product Manager",
+      "skill_categories": [
+        {
+          "category": "Product Strategy",
+          "weight": 3.0,
+          "skills": [
+            {"name": "Product Strategy", "keywords": ["product strategy", "vision", "roadmap", "product vision", "strategic planning", "market analysis", "competitive analysis", "swot", "porters five forces"], "weight_type": "required", "min_years": 2},
+            {"name": "User Research", "keywords": ["user research", "user interview", "customer development", "jobs to be done", "persona", "usability testing", "survey", "focus group", "ethnography"], "weight_type": "required", "min_years": 2},
+            {"name": "A/B Testing", "keywords": ["a/b test", "split test", "experiment", "hypothesis", "statistical significance", "conversion rate", "experimentation", "growth experiment"], "weight_type": "required", "min_years": 1},
+            {"name": "OKR / KPI Definition", "keywords": ["okr", "kpi", "north star metric", "leading indicator", "lagging indicator", "metric tree", "goal setting", "dashboard", "analytics"], "weight_type": "required", "min_years": 2}
+          ]
+        },
+        {
+          "category": "Execution & Delivery",
+          "weight": 2.5,
+          "skills": [
+            {"name": "Agile / Scrum", "keywords": ["agile", "scrum", "sprint", "backlog", "user story", "acceptance criteria", "story point", "retrospective", "standup", "kanban", "safe"], "weight_type": "required", "min_years": 2},
+            {"name": "Stakeholder Management", "keywords": ["stakeholder", "stakeholder management", "executive update", "cross-functional", "alignment", "prioritization", "trade-off", "escalation"], "weight_type": "required", "min_years": 2},
+            {"name": "Technical Depth", "keywords": ["technical product", "api", "platform", "integration", "architecture discussion", "technical debt", "engineering partner", "engineering collaboration"], "weight_type": "preferred", "min_years": 1},
+            {"name": "Go-to-Market", "keywords": ["go-to-market", "gtm", "launch", "product launch", "release plan", "beta program", "early access", "customer rollout", "change management"], "weight_type": "preferred", "min_years": 1}
+          ]
+        },
+        {
+          "category": "Data & Analytics",
+          "weight": 2.0,
+          "skills": [
+            {"name": "SQL & Data Analysis", "keywords": ["sql", "data analysis", "data driven", "metric", "analytics", "mode", "looker", "tableau", "mixpanel", "amplitude", "segment", "google analytics"], "weight_type": "required", "min_years": 2},
+            {"name": "Data-Informed Decision Making", "keywords": ["data-informed", "data-driven", "decision framework", "ruthless prioritization", "weighted scoring", "rice", "impact effort", "cost benefit"], "weight_type": "required", "min_years": 2},
+            {"name": "P&L Awareness", "keywords": ["p&l", "profit and loss", "revenue", "margin", "unit economics", "cac", "ltv", "monetization", "pricing", "business case"], "weight_type": "preferred", "min_years": 1}
+          ]
+        },
+        {
+          "category": "Leadership & Communication",
+          "weight": 1.5,
+          "skills": [
+            {"name": "Influence Without Authority", "keywords": ["influence", "persuasion", "alignment", "consensus", "negotiation", "conflict resolution", "difficult conversation"], "weight_type": "required", "min_years": 2},
+            {"name": "Team Mentorship", "keywords": ["mentor", "mentorship", "coaching", "growing pm", "onboarding", "pm team lead", "pod lead"], "weight_type": "preferred", "min_years": 1},
+            {"name": "Written Communication", "keywords": ["written communication", "prd", "product requirements", "spec", "one-pager", "narrative", "strategy doc", "product memo"], "weight_type": "required", "min_years": 2}
+          ]
+        }
+      ]
+    },
+    {
+      "role_slug": "healthcare-it-manager",
+      "role_title": "Healthcare IT Manager",
+      "alternate_titles": ["Health IT Manager", "Clinical Informatics Manager", "IT Operations Manager (Healthcare)", "Hospital IT Director"],
+      "industry": "Healthcare",
+      "seniority_levels": ["Analyst (0-3 yrs)", "Manager (3-7 yrs)", "Director (7-12 yrs)", "VP/CIO (12+ yrs)"],
+      "target_next_role": "Director of Health IT / VP of Clinical Informatics",
+      "skill_categories": [
+        {
+          "category": "Clinical Systems",
+          "weight": 3.0,
+          "skills": [
+            {"name": "EHR / EMR Systems", "keywords": ["ehr", "emr", "electronic health record", "epic", "cerner", "meditech", "allscripts", "athenahealth", "ecw", "nextgen", "eclinicalworks"], "weight_type": "required", "min_years": 3},
+            {"name": "Epic Specific", "keywords": ["epic", "epic certification", "epic implementation", "epic upgrade", "clarity", "cogito", "hyperspace", "my chart", "willow", "beacon", "cadence", "orders"], "weight_type": "preferred", "min_years": 2},
+            {"name": "Clinical Workflow", "keywords": ["clinical workflow", "clinical informatics", "nursing informatics", "physician adoption", "order set", "clinical decision support", "cds"], "weight_type": "required", "min_years": 2},
+            {"name": "Interoperability", "keywords": ["interoperability", "hl7", "fhir", "api", "ccda", "direct messaging", "carequality", "commonwell", "patient data exchange"], "weight_type": "preferred", "min_years": 1}
+          ]
+        },
+        {
+          "category": "IT Operations & Security",
+          "weight": 2.5,
+          "skills": [
+            {"name": "HIPAA Compliance", "keywords": ["hipaa", "privacy rule", "security rule", "breach notification", "phi", "protected health information", "baa", "risk assessment", "security audit"], "weight_type": "required", "min_years": 2},
+            {"name": "ITIL / ITSM", "keywords": ["itil", "itsm", "service management", "incident management", "change management", "problem management", "service desk", "sla management"], "weight_type": "required", "min_years": 2},
+            {"name": "Infrastructure Management", "keywords": ["infrastructure", "server", "network", "storage", "virtualization", "vmware", "backup", "disaster recovery", "bcp", "datacenter", "cloud migration"], "weight_type": "preferred", "min_years": 2},
+            {"name": "Cybersecurity", "keywords": ["cybersecurity", "information security", "nist", "risk management", "vulnerability management", "zero trust", "encryption", "access control", "identity management"], "weight_type": "preferred", "min_years": 1}
+          ]
+        },
+        {
+          "category": "Leadership & Vendor Management",
+          "weight": 2.0,
+          "skills": [
+            {"name": "Vendor Management", "keywords": ["vendor management", "contract negotiation", "vendor selection", "rfp", "vendor evaluation", "software licensing", "managed services", "sla negotiation"], "weight_type": "required", "min_years": 2},
+            {"name": "Budget Management", "keywords": ["budget", "budget management", "it budget", "capital planning", "opex", "cost allocation", "financial forecasting", "roi analysis"], "weight_type": "required", "min_years": 2},
+            {"name": "Team Leadership", "keywords": ["team leadership", "management", "hiring", "performance review", "staff development", "organizational design", "retention"], "weight_type": "required", "min_years": 2},
+            {"name": "Project Management", "keywords": ["project management", "pmp", "project portfolio", "implementation", "go-live", "cutover", "pmo", "project governance"], "weight_type": "preferred", "min_years": 2}
+          ]
+        },
+        {
+          "category": "Strategic & Compliance",
+          "weight": 1.5,
+          "skills": [
+            {"name": "Regulatory Compliance", "keywords": ["regulatory", "meaningful use", "mips", "promoting interoperability", "joint commission", "accreditation", "cms", "onc", "hit certification"], "weight_type": "required", "min_years": 1},
+            {"name": "Board-Level Communication", "keywords": ["board presentation", "executive reporting", "cio presentation", "steering committee", "governance board", "strategic plan"], "weight_type": "preferred", "min_years": 1},
+            {"name": "Value-Based Care IT", "keywords": ["value-based care", "population health", "risk adjustment", "hcc", "quality measures", "star ratings", "aco", "patient engagement"], "weight_type": "preferred", "min_years": 1}
+          ]
+        },
+        {
+          "category": "Certifications",
+          "weight": 1.0,
+          "skills": [
+            {"name": "CHCIO", "keywords": ["chcio", "certified healthcare cio", "chime"], "weight_type": "preferred", "min_years": 0},
+            {"name": "Epic Certification", "keywords": ["epic certification", "epic credentialed"], "weight_type": "preferred", "min_years": 0},
+            {"name": "PMP", "keywords": ["pmp", "project management professional"], "weight_type": "bonus", "min_years": 0},
+            {"name": "CISSP / CISM", "keywords": ["cissp", "cism", "security certification", "information security"], "weight_type": "bonus", "min_years": 0}
+          ]
+        }
+      ]
+    }
+  ]
+}

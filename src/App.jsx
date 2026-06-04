@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { generateReport } from './engine/analysisEngine';
 import { purchaseFullReport, purchaseSubscription, getStripe, PAYMENT_LINKS } from './stripe/stripeConfig';
+import { analyzeResume } from './engine/resumeAnalyzer';
 
 const steps = [
   { id: 1, title: 'Basics', description: 'Who you are' },
@@ -17,6 +18,7 @@ function App() {
     industry: '',
     experience: '',
     skills: '',
+    resumeText: '',
     location: '',
     targetSalary: '',
     goalType: 'growth',
@@ -39,7 +41,8 @@ function App() {
       setIsAnalyzing(true);
       setTimeout(() => {
         const generatedReport = generateReport(formData);
-        setReport(generatedReport);
+        const resumeAnalysis = analyzeResume(formData);
+        setReport({ ...generatedReport, resumeAnalysis });
         setIsAnalyzing(false);
         setCurrentStep(4);
       }, 2500);
@@ -59,6 +62,7 @@ function App() {
       industry: '',
       experience: '',
       skills: '',
+      resumeText: '',
       location: '',
       targetSalary: '',
       goalType: 'growth',
@@ -456,6 +460,18 @@ function App() {
                       className="block w-full rounded-xl border-2 border-slate-200 shadow-sm focus:border-accent focus:ring-accent sm:text-base p-4 transition-all outline-none"
                       placeholder="e.g. System Design, Python, SQL, Leadership, Product Strategy" />
                   </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-1.5">Resume / Profile Summary <span className="text-gray-400 font-normal">(paste your resume or LinkedIn summary for skill gap analysis)</span></label>
+                    <textarea name="resumeText" rows={6} value={formData.resumeText} onChange={handleInputChange}
+                      className="block w-full rounded-xl border-2 border-slate-200 shadow-sm focus:border-accent focus:ring-accent sm:text-base p-4 transition-all outline-none resize-none"
+                      placeholder="Paste your resume, LinkedIn profile, or career summary here. Our AI will scan it against industry role requirements to find skill gaps..." />
+                    <p className="text-xs text-gray-400 mt-1.5 flex items-center gap-1">
+                      <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      Optional — enables detailed Resume Gap Analysis in your report
+                    </p>
+                  </div>
                 </div>
               </div>
             )}
@@ -582,6 +598,153 @@ function App() {
                 <div className="space-y-2">
                   {report.sections.map(section => renderSection(section))}
                 </div>
+
+                {/* ── RESUME GAP ANALYSIS ──────────────────────── */}
+                {report.resumeAnalysis && report.resumeAnalysis.hasResume && (
+                  <div className="mt-10 mb-6">
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-md">
+                        <svg className="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-bold text-primary">Resume Gap Analysis</h3>
+                        <p className="text-sm text-secondary">For: <span className="font-semibold text-gray-700">{report.resumeAnalysis.targetRole}</span> → <span className="text-accent font-semibold">{report.resumeAnalysis.targetNextRole}</span></p>
+                      </div>
+                    </div>
+
+                    {/* Overall Score */}
+                    <div className="bg-gradient-to-r from-primary to-slate-800 rounded-2xl p-6 text-white mb-6 shadow-lg">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-slate-300 uppercase tracking-wider font-semibold">Overall Match Score</p>
+                          <p className="text-4xl font-extrabold mt-1">{report.resumeAnalysis.overallScore}%</p>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-sm text-slate-300">Gap Level</p>
+                          <span className={`inline-block mt-1 px-4 py-1.5 rounded-full text-sm font-bold ${
+                            report.resumeAnalysis.gap === 'none' ? 'bg-accent text-white' :
+                            report.resumeAnalysis.gap === 'low' ? 'bg-green-500 text-white' :
+                            report.resumeAnalysis.gap === 'medium' ? 'bg-warning text-primary' :
+                            'bg-red-500 text-white'
+                          }`}>
+                            {report.resumeAnalysis.gap.toUpperCase()}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Skill Categories */}
+                    <div className="space-y-6">
+                      {report.resumeAnalysis.categories.map((cat, ci) => (
+                        <div key={ci} className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                          <div className="bg-slate-50 px-5 py-3 border-b border-slate-200 flex items-center justify-between">
+                            <h4 className="font-bold text-primary text-base">{cat.category}</h4>
+                            <div className="flex items-center gap-3">
+                              <div className="w-24 bg-slate-200 rounded-full h-2 overflow-hidden">
+                                <div className={`h-full rounded-full ${
+                                  cat.gap === 'none' ? 'bg-accent' :
+                                  cat.gap === 'low' ? 'bg-green-500' :
+                                  cat.gap === 'medium' ? 'bg-warning' : 'bg-red-500'
+                                }`} style={{ width: `${cat.overallScore}%` }}></div>
+                              </div>
+                              <span className="text-xs font-bold text-gray-500 w-10 text-right">{cat.overallScore}%</span>
+                            </div>
+                          </div>
+                          <div className="p-5 space-y-3">
+                            {cat.skills.map((skill, si) => {
+                              const gapColors = {
+                                none: 'text-emerald-600 bg-emerald-50',
+                                low: 'text-green-600 bg-green-50',
+                                medium: 'text-amber-600 bg-amber-50',
+                                high: 'text-orange-600 bg-orange-50',
+                                major: 'text-red-600 bg-red-50'
+                              };
+                              const barGradients = {
+                                none: 'linear-gradient(90deg, #00b894, #00d2a0)',
+                                low: 'linear-gradient(90deg, #00b894, #55efc4)',
+                                medium: 'linear-gradient(90deg, #fdcb6e, #f8a825)',
+                                high: 'linear-gradient(90deg, #f39c12, #e67e22)',
+                                major: 'linear-gradient(90deg, #e74c3c, #c0392b)'
+                              };
+                              return (
+                                <div key={si} className="flex items-center gap-3 py-1">
+                                  <span className="text-sm font-medium text-gray-700 w-1/3 shrink-0">{skill.name}</span>
+                                  <div className="flex-1 bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                                    <div className="h-full rounded-full transition-all"
+                                      style={{ width: `${skill.score}%`, background: barGradients[skill.gap] || barGradients.major }}>
+                                    </div>
+                                  </div>
+                                  <span className={`text-xs font-bold px-2 py-0.5 rounded-full w-20 text-center shrink-0 ${gapColors[skill.gap] || gapColors.major}`}>
+                                    {skill.score}%
+                                  </span>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Top Strengths */}
+                    {report.resumeAnalysis.topStrengths.length > 0 && (
+                      <div className="mt-6 bg-emerald-50 border border-emerald-100 rounded-xl p-5">
+                        <h4 className="font-bold text-emerald-800 mb-2 flex items-center gap-2">
+                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                          </svg>
+                          Top Strengths
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          {report.resumeAnalysis.topStrengths.map((s, i) => (
+                            <span key={i} className="inline-flex items-center gap-1 bg-white px-3 py-1.5 rounded-lg text-sm font-medium text-emerald-700 shadow-sm border border-emerald-200">
+                              {s}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Top Gaps */}
+                    {report.resumeAnalysis.topGaps.length > 0 && (
+                      <div className="mt-4 bg-red-50 border border-red-100 rounded-xl p-5">
+                        <h4 className="font-bold text-red-800 mb-2 flex items-center gap-2">
+                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                          </svg>
+                          Priority Gaps to Close
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          {report.resumeAnalysis.topGaps.map((s, i) => (
+                            <span key={i} className="inline-flex items-center gap-1 bg-white px-3 py-1.5 rounded-lg text-sm font-medium text-red-700 shadow-sm border border-red-200">
+                              <span className="w-4 h-4 rounded-full bg-red-500 text-white text-xs flex items-center justify-center font-bold">{i + 1}</span>
+                              {s}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Recommendations */}
+                    <div className="mt-6 bg-accent bg-opacity-5 border border-accent border-opacity-20 rounded-xl p-5">
+                      <h4 className="font-bold text-primary mb-3 flex items-center gap-2">
+                        <svg className="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                        Actionable Recommendations
+                      </h4>
+                      <ul className="space-y-2">
+                        {report.resumeAnalysis.recommendations.map((r, i) => (
+                          <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
+                            <span className="w-5 h-5 rounded-full bg-accent text-white text-xs flex items-center justify-center shrink-0 mt-0.5 font-bold">{i + 1}</span>
+                            {r}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
 
                 {/* ── CONVERSION CTAs ──────────────────────────── */}
                 <div className="mt-10 pt-8 border-t border-slate-200">
@@ -750,21 +913,4 @@ function App() {
   );
 }
 
-export default App;/home/engine/.bashrc: line 1: syntax error near unexpected token `('
-/home/engine/.bashrc: line 1: `. /etc/profile.d/workload-containment.shn# ~/.bashrc: executed by bash(1) for non-login shells.'
-/home/engine/.bashrc: line 1: syntax error near unexpected token `('
-/home/engine/.bashrc: line 1: `. /etc/profile.d/workload-containment.shn# ~/.bashrc: executed by bash(1) for non-login shells.'
-/home/engine/.bashrc: line 1: syntax error near unexpected token `('
-/home/engine/.bashrc: line 1: `. /etc/profile.d/workload-containment.shn# ~/.bashrc: executed by bash(1) for non-login shells.'
-/home/engine/.bashrc: line 1: syntax error near unexpected token `('
-/home/engine/.bashrc: line 1: `. /etc/profile.d/workload-containment.shn# ~/.bashrc: executed by bash(1) for non-login shells.'
-/home/engine/.bashrc: line 1: syntax error near unexpected token `('
-/home/engine/.bashrc: line 1: `. /etc/profile.d/workload-containment.shn# ~/.bashrc: executed by bash(1) for non-login shells.'
-/home/engine/.bashrc: line 1: syntax error near unexpected token `('
-/home/engine/.bashrc: line 1: `. /etc/profile.d/workload-containment.shn# ~/.bashrc: executed by bash(1) for non-login shells.'
-/home/engine/.bashrc: line 1: syntax error near unexpected token `('
-/home/engine/.bashrc: line 1: `. /etc/profile.d/workload-containment.shn# ~/.bashrc: executed by bash(1) for non-login shells.'
-/home/engine/.bashrc: line 1: syntax error near unexpected token `('
-/home/engine/.bashrc: line 1: `. /etc/profile.d/workload-containment.shn# ~/.bashrc: executed by bash(1) for non-login shells.'
-/home/engine/.bashrc: line 1: syntax error near unexpected token `('
-/home/engine/.bashrc: line 1: `. /etc/profile.d/workload-containment.shn# ~/.bashrc: executed by bash(1) for non-login shells.'
+export default App;
