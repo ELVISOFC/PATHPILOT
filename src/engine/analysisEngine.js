@@ -57,20 +57,74 @@ function matchSample(formData) {
 }
 
 /**
+ * Estimate years of experience from the free-text experience summary
+ * and job title. Looks for an explicit "N years" figure first, then
+ * falls back to seniority keywords in the title, then a neutral
+ * mid-level default. Deterministic: same input always yields the same
+ * estimate.
+ */
+function extractYearsOfExperience(experienceText, jobTitle) {
+  const text = `${experienceText || ''} ${jobTitle || ''}`.toLowerCase();
+
+  const yearsMatch = text.match(/(\d+)\+?\s*years?/);
+  if (yearsMatch) return Math.min(parseInt(yearsMatch[1], 10), 20);
+
+  if (/\b(principal|staff|director|vp|vice president|head of)\b/.test(text)) return 12;
+  if (/\b(senior|sr\.?|lead)\b/.test(text)) return 7;
+  if (/\b(junior|jr\.?|associate|entry)\b/.test(text)) return 1;
+  return 4;
+}
+
+/**
+ * Market match percentile, derived from estimated experience and the
+ * breadth of listed skills rather than chance. Capped at 92 so this
+ * reads as an estimate, not a guarantee.
+ */
+function computeMarketMatchScore(years, skillCount) {
+  const experienceComponent = Math.min(years, 15) * 0.8;
+  const breadthComponent = Math.min(skillCount, 6) * 0.5;
+  return Math.min(75 + Math.round(experienceComponent + breadthComponent), 92);
+}
+
+/**
+ * Maps estimated years of experience to a 1-4 proficiency level. Used
+ * as the "current level" baseline for every listed skill, since the
+ * generic fallback (unlike the resume-based analyzer) has no
+ * per-skill signal to differentiate on.
+ */
+function computeSkillLevel(years) {
+  if (years >= 8) return 4;
+  if (years >= 4) return 3;
+  if (years >= 1) return 2;
+  return 1;
+}
+
+/** Gap label derived directly from the level vs. requirement gap, so the two numbers can never contradict each other. */
+function gapFromLevels(currentLevel, requiredLevel) {
+  const diff = requiredLevel - currentLevel;
+  if (diff <= 0) return 'none';
+  if (diff === 1) return 'medium';
+  return 'high';
+}
+
+/**
  * Build a generic fallback report when no sample matches.
  */
 function buildFallbackReport(formData) {
   const skills = formData.skills.split(',').map(s => s.trim()).filter(Boolean);
   const primarySkill = skills[0] || 'your core expertise';
-  const marketMatchScore = 75 + Math.floor(Math.random() * 15);
+  const years = extractYearsOfExperience(formData.experience, formData.jobTitle);
+  const marketMatchScore = computeMarketMatchScore(years, skills.length);
   const numericSalary = parseInt(formData.targetSalary.replace(/[^0-9]/g, '')) || 100000;
   const avgSalary = Math.floor(numericSalary * 0.92);
 
+  const requiredLevel = 4;
+  const currentSkillLevel = computeSkillLevel(years);
   const skillGaps = skills.slice(0, 6).map(skill => ({
     name: skill,
-    level: Math.floor(2 + Math.random() * 2),
-    required: 4,
-    gap: Math.random() > 0.5 ? 'medium' : 'high'
+    level: currentSkillLevel,
+    required: requiredLevel,
+    gap: gapFromLevels(currentSkillLevel, requiredLevel)
   }));
 
   return {
